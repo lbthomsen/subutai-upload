@@ -9,6 +9,7 @@ const commandLineArgs = require("command-line-args");
 const commandLineUsage = require("command-line-usage");
 const asyncModule = require("async");
 const request = require("request");
+const progress = require("request-progress");
 
 const pkg = require(__dirname + "/package.json");
 
@@ -90,7 +91,7 @@ async function doRun() {
             file: fs.createReadStream(file)
         };
 
-        request.post({
+        progress(request.post({
             url: url,
             formData: formData
         }, function(err, rest, body) {
@@ -102,6 +103,8 @@ async function doRun() {
             }
 
             doneFile();
+        })).on("progress", function(state) {
+            console.log("Progress: ", state)
         });
 
     }, function() {
