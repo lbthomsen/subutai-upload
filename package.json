@@ -1,0 +1,34 @@
+{
+  "name": "subutai-upload",
+  "version": "0.0.1",
+  "description": "Upload file(s) to Subutai",
+  "main": "subutai-upload",
+  "bin": {
+    "subutai-upload": "subutai-upload-js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lbthomsen/subutai-upload.git"
+  },
+  "keywords": [
+    "subutai",
+    "cdn",
+    "upload"
+  ],
+  "author": "Lars Boegild Thomsen <lbthomsen@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lbthomsen/subutai-upload/issues"
+  },
+  "homepage": "https://github.com/lbthomsen/subutai-upload#readme",
+  "dependencies": {
+    "command-line-args": "^5.0.2",
+    "command-line-usage": "^5.0.5",
+    "fs-extra": "^7.0.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  }
+}
