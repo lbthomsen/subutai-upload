@@ -1,10 +1,10 @@
 {
   "name": "subutai-upload",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Upload file(s) to Subutai",
   "main": "subutai-upload",
   "bin": {
-    "subutai-upload": "subutai-upload-js"
+    "subutai-upload": "subutai-upload.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
