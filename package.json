@@ -1,6 +1,6 @@
 {
   "name": "subutai-upload",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Upload file(s) to Subutai",
   "main": "subutai-upload",
   "bin": {
@@ -25,10 +25,9 @@
   },
   "homepage": "https://github.com/lbthomsen/subutai-upload#readme",
   "dependencies": {
+    "async": "^2.6.2",
     "command-line-args": "^5.0.2",
     "command-line-usage": "^5.0.5",
-    "fs-extra": "^7.0.1",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.4"
+    "request": "^2.88.0"
   }
 }

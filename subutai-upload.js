@@ -4,10 +4,11 @@
  * Upload file(s) to subutai
  */
 
+const fs = require("fs");
 const commandLineArgs = require("command-line-args");
 const commandLineUsage = require("command-line-usage");
-const fs = require("fs-extra");
-const request = require("request-promise");
+const asyncModule = require("async");
+const request = require("request");
 
 const pkg = require(__dirname + "/package.json");
 
@@ -51,7 +52,7 @@ const optionDefs = [
         alias: "o",
         type: String,
         description: "Override bazaar base url - for example: https://bazaar-1.subutai.io"
-    }, 
+    },
     {
         name: "files",
         alias: "f",
@@ -81,25 +82,30 @@ async function doRun() {
 
     options.verbose && console.log("Using bazaar url = ", url);
 
-    options.files.forEach(function(file) {
+    asyncModule.eachSeries(options.files, function(file, doneFile) {
+        options.verbose && console.log("Processing file: ", file);
 
         const formData = {
-            token: options.token, 
+            token: options.token,
             file: fs.createReadStream(file)
-          };
+        };
 
         request.post({
             url: url,
             formData: formData
-        }, function (err, httpResponse, body) {
+        }, function(err, rest, body) {
             if (err) {
-                console.error(err);
+                console.err("Error: ", err);
             } else {
-                console.log(body);
+                bodyJson = JSON.parse(body);
+                console.log(file + " uploaded to: https://ipfs.subutai.io/ipfs/" + bodyJson.id);
             }
-        });
-    
 
+            doneFile();
+        });
+
+    }, function() {
+        options.verbose && console.log("Done uploading files");
     });
 
 }
@@ -113,12 +119,15 @@ options.verbose && console.log("Options: ", options);
 if (options.help) {
     const usage = commandLineUsage([
         {
-            header: "Typical use",
+            header: "Usage",
             content: 'subutai-upload --token "9beeecae-742b-497a-984b-d32b7d179aaa" photo.png'
         },
         {
             header: "Options",
             optionList: optionDefs
+        },
+        {
+            content: "See 'https://github.com:lbthomsen/subutai-upload' for more info"
         }
     ]);
     console.log(usage);
