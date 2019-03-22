@@ -9,7 +9,6 @@ const commandLineArgs = require("command-line-args");
 const commandLineUsage = require("command-line-usage");
 const asyncModule = require("async");
 const request = require("request");
-const progress = require("request-progress");
 
 const pkg = require(__dirname + "/package.json");
 
@@ -83,7 +82,7 @@ async function doRun() {
 
     options.verbose && console.log("Using bazaar url = ", url);
 
-    asyncModule.eachSeries(options.files, function(file, doneFile) {
+    asyncModule.eachSeries(options.files, function (file, doneFile) {
         options.verbose && console.log("Processing file: ", file);
 
         const formData = {
@@ -91,10 +90,10 @@ async function doRun() {
             file: fs.createReadStream(file)
         };
 
-        progress(request.post({
+        request.post({
             url: url,
             formData: formData
-        }, function(err, rest, body) {
+        }, function (err, rest, body) {
             if (err) {
                 console.err("Error: ", err);
             } else {
@@ -103,11 +102,9 @@ async function doRun() {
             }
 
             doneFile();
-        })).on("progress", function(state) {
-            console.log("Progress: ", state)
         });
 
-    }, function() {
+    }, function () {
         options.verbose && console.log("Done uploading files");
     });
 

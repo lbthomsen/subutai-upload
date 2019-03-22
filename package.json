@@ -1,6 +1,6 @@
 {
   "name": "subutai-upload",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Upload file(s) to Subutai",
   "main": "subutai-upload",
   "bin": {
@@ -28,7 +28,6 @@
     "async": "^2.6.2",
     "command-line-args": "^5.0.2",
     "command-line-usage": "^5.0.5",
-    "request": "^2.88.0",
-    "request-progress": "^3.0.0"
+    "request": "^2.88.0"
   }
 }
